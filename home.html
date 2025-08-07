@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .greeting-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .greeting-box h1 {
+      font-size: 28px;
+      color: #00796b;
+    }
+
+    .greeting-box p {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="greeting-box">
+    <h1 id="greeting"></h1>
+    <p id="emoji-message"></p>
+  </div>
+
+  <script>
+    const username = localStorage.getItem("loggedInUser") || "User";
+    const hour = new Date().getHours();
+
+    let greeting = "";
+    let emojiMessage = "";
+
+    if (hour >= 5 && hour < 12) {
+      greeting = `☀️ Good morning, ${username}!`;
+      emojiMessage = "Have a fresh start with some ☕ coffee!";
+    } else if (hour >= 12 && hour < 17) {
+      greeting = `🍱 Good afternoon, ${username}!`;
+      emojiMessage = "Time for lunch and a short break!";
+    } else if (hour >= 17 && hour < 21) {
+      greeting = `🌙 Good evening, ${username}!`;
+      emojiMessage = "Hope you had a productive day!";
+    } else {
+      greeting = `💤 Good night, ${username}!`;
+      emojiMessage = "Sleep well and recharge for tomorrow!";
+    }
+
+    document.getElementById("greeting").textContent = greeting;
+    document.getElementById("emoji-message").textContent = emojiMessage;
+  </script>
+
+</body>
+</html>

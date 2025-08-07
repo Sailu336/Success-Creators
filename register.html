@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #dff6ff, #bae6fd);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150vh;
+      margin: 0;
+    }
+
+    .form-box {
+      background: #ffffff;
+      padding: 30px 35px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 450px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00509e;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .required {
+      color: red;
+      margin-left: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .gender-group {
+      margin-top: 6px;
+    }
+
+    .gender-group label {
+      font-weight: normal;
+      margin-right: 15px;
+      color: #444;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-box">
+    <h2>Registration Form</h2>
+    <form onsubmit="registerUser(event)">
+
+      <label for="fullName">Full Name<span class="required">*</span></label>
+      <input type="text" id="fullName" required>
+
+      <label for="username">Username<span class="required">*</span></label>
+      <input type="text" id="username" required>
+
+      <label for="email">Email<span class="required">*</span></label>
+      <input type="email" id="email" required>
+
+      <label for="phone">Phone Number<span class="required">*</span></label>
+      <input type="tel" id="phone" required>
+
+      <label>Gender<span class="required">*</span></label>
+      <div class="gender-group">
+        <label><input type="radio" name="gender" value="Male" required> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+
+      <label for="dob">Date of Birth<span class="required">*</span></label>
+      <input type="date" id="dob" required>
+
+      <label for="address">Address<span class="required">*</span></label>
+      <textarea id="address" rows="3" required></textarea>
+
+      <label for="password">Password<span class="required">*</span></label>
+      <input type="password" id="password" required>
+
+      <label for="confirmPassword">Confirm Password<span class="required">*</span></label>
+      <input type="password" id="confirmPassword" required>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    function registerUser(event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById("fullName").value;
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const dob = document.getElementById("dob").value;
+      const address = document.getElementById("address").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      const genderInputs = document.getElementsByName("gender");
+      let gender = "";
+      for (let i = 0; i < genderInputs.length; i++) {
+        if (genderInputs[i].checked) {
+          gender = genderInputs[i].value;
+          break;
+        }
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      const userData = {
+        fullName,
+        username,
+        email,
+        phone,
+        gender,
+        dob,
+        address,
+        password
+      };
+
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      localStorage.setItem("userData", JSON.stringify(userData));
+
+      alert("Registration successful! You can now log in.");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>
